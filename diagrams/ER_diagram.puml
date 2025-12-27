@@ -1,0 +1,108 @@
+@startuml ER_diagram
+!theme plain
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam backgroundColor #FFFFFF
+skinparam class {
+    BackgroundColor #FFFFFF
+    BorderColor #355CBD
+    HeaderBackgroundColor #355CBD
+    HeaderFontColor #FFFFFF
+}
+
+' Таблица Material_types
+entity "ТИПЫ МАТЕРИАЛОВ" as mt {
+  + material_type_id : INT <<PK>>
+  --
+  material_type_name : VARCHAR(100)
+  waste_percentage : DECIMAL(5,4)
+  description : TEXT
+  is_ecological : BOOLEAN
+  created_at : TIMESTAMP
+}
+
+' Таблица Product_types  
+entity "ТИПЫ ПРОДУКЦИИ" as pt {
+  + product_type_id : INT <<PK>>
+  --
+  product_type_name : VARCHAR(100)
+  type_coefficient : DECIMAL(5,2)
+  style : VARCHAR(50)
+  description : TEXT
+  created_at : TIMESTAMP
+}
+
+' Таблица Workshops
+entity "ЦЕХА" as w {
+  + workshop_id : INT <<PK>>
+  --
+  workshop_name : VARCHAR(100)
+  workshop_type : VARCHAR(100)
+  staff_count : INT
+  location : VARCHAR(200)
+  equipment_description : TEXT
+  is_active : BOOLEAN
+  created_at : TIMESTAMP
+}
+
+' Таблица Products
+entity "ПРОДУКЦИЯ" as p {
+  + product_id : INT <<PK>>
+  --
+  product_name : VARCHAR(200)
+  article_number : VARCHAR(50)
+  # product_type_id : INT <<FK>>
+  # material_type_id : INT <<FK>>
+  min_partner_price : DECIMAL(10,2)
+  dimensions : VARCHAR(100)
+  weight : DECIMAL(8,2)
+  description : TEXT
+  is_available : BOOLEAN
+  created_at : TIMESTAMP
+  updated_at : TIMESTAMP
+}
+
+' Таблица Product_workshops
+entity "ПРОДУКЦИЯ_ЦЕХА" as pw {
+  + product_workshop_id : INT <<PK>>
+  --
+  # product_id : INT <<FK>>
+  # workshop_id : INT <<FK>>
+  production_time_hours : DECIMAL(6,2)
+  priority : INT
+  notes : TEXT
+  created_at : TIMESTAMP
+}
+
+' Связи с правильной кардинальностью
+pt ||--o{ p : "1:N"
+mt ||--o{ p : "1:N"
+p ||--o{ pw : "1:N"
+w ||--o{ pw : "1:N"
+
+note right of mt
+  Справочник типов материалов
+  с процентом потерь сырья
+end note
+
+note right of pt
+  Справочник типов продукции
+  с коэффициентами сложности
+end note
+
+note right of w
+  Цеха для производства
+  с информацией о персонале
+end note
+
+note bottom of p
+  Основная таблица продукции
+  с ценами и характеристиками
+end note
+
+note bottom of pw
+  Связующая таблица многие-ко-многим
+  между продукцией и цехами
+end note
+
+@enduml

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER-Диаграмма - База данных мебельной компании</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="print-button-container">
+            <button class="print-btn" onclick="window.print()">Сохранить в PDF</button>
+        </div>
+        
+        <h1>ER-ДИАГРАММА БАЗЫ ДАННЫХ</h1>
+        <div class="subtitle">Система управления продукцией мебельной компании</div>
+        
+        <div class="diagram">
+            <svg width="1320" height="600">
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#355CBD"/>
+                    </marker>
+                </defs>
+                
+                <!-- материалы -> продукция -->
+                <path d="M 165 200 L 165 230 L 430 230 L 430 250" class="rel" marker-end="url(#arrow)"/>
+                <text x="175" y="220" class="card">1</text>
+                <text x="420" y="245" class="card">N</text>
+                
+                <!-- типы -> продукция -->
+                <path d="M 500 200 L 500 250" class="rel" marker-end="url(#arrow)"/>
+                <text x="510" y="220" class="card">1</text>
+                <text x="510" y="245" class="card">N</text>
+                
+                <!-- продукция -> цеха -->
+                <path d="M 500 400 L 500 420" class="rel" marker-end="url(#arrow)"/>
+                <text x="510" y="410" class="card">1</text>
+                <text x="510" y="435" class="card">N</text>
+                
+                <!-- цеха -> связь -->
+                <path d="M 1155 200 L 1155 380 L 570 380 L 570 420" class="rel" marker-end="url(#arrow)"/>
+                <text x="1165" y="220" class="card">1</text>
+                <text x="580" y="415" class="card">N</text>
+            </svg>
+            
+            <!-- материалы -->
+            <div class="entity" id="material-types">
+                <div class="entity-header">ТИПЫ МАТЕРИАЛОВ</div>
+                <div class="attribute pk">
+                    <span><span class="key-badge pk-badge">ПК</span>material_type_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>material_type_name</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>waste_percentage</span>
+                    <span>REAL</span>
+                </div>
+                <div class="attribute">
+                    <span>is_ecological</span>
+                    <span>INTEGER</span>
+                </div>
+            </div>
+            
+            <!-- типы продукции -->
+            <div class="entity" id="product-types">
+                <div class="entity-header">ТИПЫ ПРОДУКЦИИ</div>
+                <div class="attribute pk">
+                    <span><span class="key-badge pk-badge">ПК</span>product_type_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>product_type_name</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>type_coefficient</span>
+                    <span>REAL</span>
+                </div>
+                <div class="attribute">
+                    <span>style</span>
+                    <span>TEXT</span>
+                </div>
+            </div>
+            
+            <!-- цеха -->
+            <div class="entity" id="workshops">
+                <div class="entity-header">ЦЕХА</div>
+                <div class="attribute pk">
+                    <span><span class="key-badge pk-badge">ПК</span>workshop_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>workshop_name</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>workshop_type</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>staff_count</span>
+                    <span>INTEGER</span>
+                </div>
+            </div>
+            
+            <!-- продукция -->
+            <div class="entity" id="products">
+                <div class="entity-header">ПРОДУКЦИЯ</div>
+                <div class="attribute pk">
+                    <span><span class="key-badge pk-badge">ПК</span>product_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>product_name</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>article_number</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute fk">
+                    <span><span class="key-badge fk-badge">ВК</span>material_type_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute fk">
+                    <span><span class="key-badge fk-badge">ВК</span>product_type_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>min_partner_price</span>
+                    <span>REAL</span>
+                </div>
+                <div class="attribute">
+                    <span>dimensions</span>
+                    <span>TEXT</span>
+                </div>
+                <div class="attribute">
+                    <span>weight</span>
+                    <span>REAL</span>
+                </div>
+            </div>
+            
+            <!-- связь продукция-цеха -->
+            <div class="entity" id="product-workshops">
+                <div class="entity-header">ПРОДУКЦИЯ_ЦЕХА</div>
+                <div class="attribute pk">
+                    <span><span class="key-badge pk-badge">ПК</span>product_workshop_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute fk">
+                    <span><span class="key-badge fk-badge">ВК</span>product_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute fk">
+                    <span><span class="key-badge fk-badge">ВК</span>workshop_id</span>
+                    <span>INTEGER</span>
+                </div>
+                <div class="attribute">
+                    <span>production_time_hours</span>
+                    <span>REAL</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- статистика -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-val">5</div>
+                <div class="stat-lbl">Таблиц</div>
+            </div>
+            <div class="stat">
+                <div class="stat-val">172</div>
+                <div class="stat-lbl">Записей</div>
+            </div>
+            <div class="stat">
+                <div class="stat-val">4</div>
+                <div class="stat-lbl">Связей</div>
+            </div>
+            <div class="stat">
+                <div class="stat-val">3НФ</div>
+                <div class="stat-lbl">Норм. форма</div>
+            </div>
+        </div>
+        
+        <!-- легенда -->
+        <div class="legend">
+            <h3>Легенда</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="key-badge pk-badge">ПК</span>
+                    <span>Первичный ключ</span>
+                </div>
+                <div class="legend-item">
+                    <span class="key-badge fk-badge">ВК</span>
+                    <span>Внешний ключ</span>
+                </div>
+                <div class="legend-item">
+                    <span class="relation-symbol">1:N</span>
+                    <span>Связь один-ко-многим</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- инфо о бд -->
+        <div class="info-box">
+            <h3>Информация о базе данных</h3>
+            <ul>
+                <li><strong>СУБД:</strong> SQLite3</li>
+                <li><strong>Нормальная форма:</strong> 3НФ (Третья нормальная форма)</li>
+                <li><strong>Ссылочная целостность:</strong> Обеспечивается внешними ключами</li>
+                <li><strong>Всего записей:</strong> 172</li>
+                <li><strong>Таблицы:</strong> 5 (Типы материалов, Типы продукции, Цеха, Продукция, Продукция-Цеха)</li>
+            </ul>
+        </div>
+        
+        <!-- как печатать -->
+        <div class="print-instructions no-print">
+            <h3>Как сохранить в PDF</h3>
+            <ol>
+                <li>Нажмите <kbd>Ctrl+P</kbd> (или <kbd>Cmd+P</kbd> на Mac)</li>
+                <li>Выберите "Сохранить как PDF" в качестве назначения</li>
+                <li>Выберите книжную ориентацию (Portrait)</li>
+                <li>Установите масштаб "По размеру" или "Fit to page"</li>
+                <li>Убедитесь, что поля минимальные (1см)</li>
+                <li>Нажмите "Сохранить"</li>
+            </ol>
+            <p><strong>Важно:</strong> Диаграмма оптимизирована для книжной ориентации страницы A4.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить продукцию - БД Мебельной компании{% endblock %}
+
+{% block content %}
+<h2>Добавить продукцию</h2>
+
+<form method="POST">
+    <div class="form-group">
+        <label for="name">Название продукции *</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="article">Артикул *</label>
+        <input type="text" id="article" name="article" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="product_type_id">Тип продукции *</label>
+        <select id="product_type_id" name="product_type_id" required>
+            <option value="">Выберите тип...</option>
+            {% for pt in product_types %}
+            <option value="{{ pt.product_type_id }}">{{ pt.product_type_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="material_type_id">Тип материала *</label>
+        <select id="material_type_id" name="material_type_id" required>
+            <option value="">Выберите материал...</option>
+            {% for mt in material_types %}
+            <option value="{{ mt.material_type_id }}">{{ mt.material_type_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label for="price">Минимальная цена для партнера (₽) *</label>
+        <input type="number" id="price" name="price" step="0.01" required>
+    </div>
+    
+    <div style="margin-top: 30px;">
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        <a href="{{ url_for('products') }}" class="btn">Отмена</a>
+    </div>
+</form>
+{% endblock %}

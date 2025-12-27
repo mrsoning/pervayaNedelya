@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - БД Мебельной компании{% endblock %}
+
+{% block content %}
+<h2>Статистика базы данных</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ stats.Products }}</h3>
+        <p>Продукции</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ stats.Workshops }}</h3>
+        <p>Цехов</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ stats.Product_types }}</h3>
+        <p>Типов продукции</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ stats.Material_types }}</h3>
+        <p>Типов материалов</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3>{{ stats.Product_workshops }}</h3>
+        <p>Связей</p>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+    <h3>Быстрые действия</h3>
+    <p style="margin: 20px 0;">
+        <a href="{{ url_for('products') }}" class="btn">Просмотреть продукцию</a>
+        <a href="{{ url_for('add_product') }}" class="btn btn-success">Добавить продукцию</a>
+        <a href="{{ url_for('workshops') }}" class="btn">Просмотреть цеха</a>
+        <a href="{{ url_for('analytics') }}" class="btn">Аналитика</a>
+    </p>
+</div>
+
+<div class="card">
+    <h3>О системе</h3>
+    <p style="margin-top: 15px; line-height: 1.6;">
+        Система управления продукцией мебельной компании. 
+        База данных содержит информацию о продукции, цехах, материалах и типах продукции.
+    </p>
+    <p style="margin-top: 10px;">
+        <strong>Возможности:</strong> просмотр, добавление, редактирование и удаление продукции, 
+        просмотр цехов, аналитика и статистика.
+    </p>
+</div>
+{% endblock %}

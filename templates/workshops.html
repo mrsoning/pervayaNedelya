@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Цеха - БД Мебельной компании{% endblock %}
+
+{% block content %}
+<h2>Цеха</h2>
+
+{% if workshops %}
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название цеха</th>
+            <th>Тип цеха</th>
+            <th>Персонал</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for workshop in workshops %}
+        <tr>
+            <td>{{ workshop.workshop_id }}</td>
+            <td><strong>{{ workshop.workshop_name }}</strong></td>
+            <td>{{ workshop.workshop_type }}</td>
+            <td>{{ workshop.staff_count }} чел.</td>
+            <td>
+                {% if workshop.is_active %}
+                <span style="color: green;">Активен</span>
+                {% else %}
+                <span style="color: red;">Неактивен</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p style="margin-top: 20px; color: #6c757d;">
+    Всего цехов: <strong>{{ workshops|length }}</strong>
+</p>
+{% else %}
+<div class="alert alert-danger">
+    Цеха не найдены.
+</div>
+{% endif %}
+{% endblock %}

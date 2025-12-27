@@ -1,0 +1,67 @@
+<h2>Статистика базы данных</h2>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3><%= stats.Products %></h3>
+        <p>Продукции</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3><%= stats.Workshops %></h3>
+        <p>Цехов</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3><%= stats.Product_types %></h3>
+        <p>Типов продукции</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3><%= stats.Material_types %></h3>
+        <p>Типов материалов</p>
+    </div>
+    
+    <div class="stat-card">
+        <h3><%= stats.Product_workshops %></h3>
+        <p>Связей</p>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 30px;">
+    <h3>Быстрые действия</h3>
+    <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="/products/add" class="btn btn-success">Добавить продукцию</a>
+    </div>
+    <p style="margin-top: 12px; line-height: 1.6; color: var(--text-secondary); font-size: 14px;">
+        Для просмотра данных используйте навигационное меню выше
+    </p>
+</div>
+
+<div class="card">
+    <h3>Документация</h3>
+    <p style="margin-top: 12px; line-height: 1.6; color: var(--text-secondary);">
+        ER-диаграмма и отчёт для документации проекта.
+    </p>
+    <div style="margin-top: 16px; display: flex; gap: 12px;">
+        <a href="/diagrams/ER_diagram.html" target="_blank" class="btn">ER-диаграмма</a>
+        <a href="/report-pdf" target="_blank" class="btn btn-success">Отчёт PDF</a>
+    </div>
+    <div style="margin-top: 16px; padding: 12px; background: #fff3e0; border-radius: 4px; border-left: 4px solid var(--warning-color);">
+        <strong style="display: block; margin-bottom: 8px;">Для создания PDF:</strong>
+        <p style="margin: 0; line-height: 1.8; color: var(--text-secondary); font-size: 13px;">
+            Откройте документ и нажмите <code>Ctrl+P</code>, затем выберите "Сохранить как PDF"
+        </p>
+    </div>
+</div>
+
+<div class="card">
+    <h3>О системе</h3>
+    <p style="margin-top: 12px; line-height: 1.6; color: var(--text-secondary);">
+        Система управления продукцией мебельной компании. 
+        База данных содержит информацию о продукции, цехах, материалах и типах продукции.
+    </p>
+    <p style="margin-top: 12px; line-height: 1.6; color: var(--text-secondary);">
+        <strong>Возможности:</strong> просмотр, добавление, редактирование и удаление продукции, 
+        просмотр цехов, аналитика и статистика.
+    </p>
+</div>

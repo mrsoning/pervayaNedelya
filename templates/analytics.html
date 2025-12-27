@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Аналитика - БД Мебельной компании{% endblock %}
+
+{% block content %}
+<h2>Аналитика</h2>
+
+<div class="card">
+    <h3>Продукция по типам</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Тип продукции</th>
+                <th>Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in by_type %}
+            <tr>
+                <td>{{ item.product_type_name }}</td>
+                <td><strong>{{ item.count }}</strong> шт.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Средняя цена по типам</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Тип продукции</th>
+                <th>Средняя цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in avg_price %}
+            <tr>
+                <td>{{ item.product_type_name }}</td>
+                <td><strong>{{ "{:,.0f}".format(item.avg_price) }}</strong> ₽</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="card">
+    <h3>Топ-10 самых дорогих товаров</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Название</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in top_products %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.product_name }}</td>
+                <td><strong>{{ "{:,.0f}".format(item.min_partner_price) }}</strong> ₽</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

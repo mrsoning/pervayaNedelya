@@ -1,0 +1,68 @@
+// ER-диаграмма БД мебельной компании
+digraph {
+	nodesep=1 rankdir=TB ranksep=1.5 splines=ortho
+	node [fontname=Arial fontsize=10 shape=plaintext]
+	Material_types [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="lightblue" COLSPAN="2"><B>Material_types</B></TD></TR>
+        <TR><TD ALIGN="LEFT">🔑 material_type_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">material_type_name</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+        <TR><TD ALIGN="LEFT">waste_percentage</TD><TD ALIGN="LEFT">DECIMAL(5,4)</TD></TR>
+        <TR><TD ALIGN="LEFT">description</TD><TD ALIGN="LEFT">TEXT</TD></TR>
+        <TR><TD ALIGN="LEFT">is_ecological</TD><TD ALIGN="LEFT">BOOLEAN</TD></TR>
+        <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+    </TABLE>>]
+	Product_types [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="lightblue" COLSPAN="2"><B>Product_types</B></TD></TR>
+        <TR><TD ALIGN="LEFT">🔑 product_type_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">product_type_name</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+        <TR><TD ALIGN="LEFT">type_coefficient</TD><TD ALIGN="LEFT">DECIMAL(5,2)</TD></TR>
+        <TR><TD ALIGN="LEFT">style</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+        <TR><TD ALIGN="LEFT">description</TD><TD ALIGN="LEFT">TEXT</TD></TR>
+        <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+    </TABLE>>]
+	Workshops [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="lightblue" COLSPAN="2"><B>Workshops</B></TD></TR>
+        <TR><TD ALIGN="LEFT">🔑 workshop_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">workshop_name</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+        <TR><TD ALIGN="LEFT">workshop_type</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+        <TR><TD ALIGN="LEFT">staff_count</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">location</TD><TD ALIGN="LEFT">VARCHAR(200)</TD></TR>
+        <TR><TD ALIGN="LEFT">equipment_description</TD><TD ALIGN="LEFT">TEXT</TD></TR>
+        <TR><TD ALIGN="LEFT">is_active</TD><TD ALIGN="LEFT">BOOLEAN</TD></TR>
+        <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+    </TABLE>>]
+	Products [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="lightgreen" COLSPAN="2"><B>Products</B></TD></TR>
+        <TR><TD ALIGN="LEFT">🔑 product_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">product_name</TD><TD ALIGN="LEFT">VARCHAR(200)</TD></TR>
+        <TR><TD ALIGN="LEFT">article_number</TD><TD ALIGN="LEFT">VARCHAR(50)</TD></TR>
+        <TR><TD ALIGN="LEFT">🔗 product_type_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">🔗 material_type_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">min_partner_price</TD><TD ALIGN="LEFT">DECIMAL(10,2)</TD></TR>
+        <TR><TD ALIGN="LEFT">dimensions</TD><TD ALIGN="LEFT">VARCHAR(100)</TD></TR>
+        <TR><TD ALIGN="LEFT">weight</TD><TD ALIGN="LEFT">DECIMAL(8,2)</TD></TR>
+        <TR><TD ALIGN="LEFT">description</TD><TD ALIGN="LEFT">TEXT</TD></TR>
+        <TR><TD ALIGN="LEFT">is_available</TD><TD ALIGN="LEFT">BOOLEAN</TD></TR>
+        <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+        <TR><TD ALIGN="LEFT">updated_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+    </TABLE>>]
+	Product_workshops [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" CELLPADDING="4">
+        <TR><TD BGCOLOR="lightyellow" COLSPAN="2"><B>Product_workshops</B></TD></TR>
+        <TR><TD ALIGN="LEFT">🔑 product_workshop_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">🔗 product_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">🔗 workshop_id</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">production_time_hours</TD><TD ALIGN="LEFT">DECIMAL(6,2)</TD></TR>
+        <TR><TD ALIGN="LEFT">priority</TD><TD ALIGN="LEFT">INT</TD></TR>
+        <TR><TD ALIGN="LEFT">notes</TD><TD ALIGN="LEFT">TEXT</TD></TR>
+        <TR><TD ALIGN="LEFT">created_at</TD><TD ALIGN="LEFT">TIMESTAMP</TD></TR>
+    </TABLE>>]
+	Product_types -> Products [label="1:N" arrowhead=crow arrowtail=none dir=both fontsize=9]
+	Material_types -> Products [label="1:N" arrowhead=crow arrowtail=none dir=both fontsize=9]
+	Products -> Product_workshops [label="1:N" arrowhead=crow arrowtail=none dir=both fontsize=9]
+	Workshops -> Product_workshops [label="1:N" arrowhead=crow arrowtail=none dir=both fontsize=9]
+}

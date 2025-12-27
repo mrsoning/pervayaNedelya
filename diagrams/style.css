@@ -1,0 +1,473 @@
+/* стили для диаграммы */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Candara', 'Segoe UI', Arial, sans-serif;
+    background: #FFFFFF;
+    padding: 20px;
+    min-height: 100vh;
+    color: #000000;
+    min-width: 1440px;
+    overflow-x: auto;
+}
+
+.container {
+    width: 1400px;
+    min-width: 1400px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 8px;
+    border: 1px solid #D2DFFF;
+}
+
+h1 {
+    text-align: center;
+    color: #355CBD;
+    margin-bottom: 10px;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666666;
+    margin-bottom: 40px;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.diagram {
+    position: relative;
+    width: 1320px;
+    height: 600px;
+    background: #D2DFFF;
+    border: 2px solid #355CBD;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+.entity {
+    position: absolute;
+    background: #FFFFFF;
+    border: 2px solid #355CBD;
+    border-radius: 5px;
+    overflow: hidden;
+    min-width: 250px;
+}
+
+.entity-header {
+    background: #355CBD;
+    color: #FFFFFF;
+    padding: 12px 15px;
+    font-weight: bold;
+    text-align: center;
+    font-size: 14px;
+}
+
+.attribute {
+    padding: 8px 12px;
+    border-bottom: 1px solid #D2DFFF;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.attribute:last-child {
+    border-bottom: none;
+}
+
+.attribute.pk {
+    background: #F0F4FF;
+    font-weight: bold;
+}
+
+.attribute.fk {
+    background: #F8FAFF;
+}
+
+.key-badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 9px;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.pk-badge {
+    background: #355CBD;
+    color: #FFFFFF;
+}
+
+.fk-badge {
+    background: #355CBD;
+    color: #FFFFFF;
+}
+
+/* позиции таблиц */
+#material-types {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    width: 250px;
+}
+
+#product-types {
+    position: absolute;
+    top: 40px;
+    left: 375px;
+    width: 250px;
+}
+
+#workshops {
+    position: absolute;
+    top: 40px;
+    left: 1030px;
+    width: 250px;
+}
+
+#products {
+    position: absolute;
+    top: 250px;
+    left: 360px;
+    width: 280px;
+}
+
+#product-workshops {
+    position: absolute;
+    top: 420px;
+    left: 360px;
+    width: 280px;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1320px;
+    height: 600px;
+    pointer-events: none;
+}
+
+.rel {
+    stroke: #355CBD;
+    stroke-width: 2;
+    fill: none;
+}
+
+.card {
+    font-size: 12px;
+    font-weight: bold;
+    fill: #355CBD;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.stat {
+    text-align: center;
+    padding: 20px;
+    background: #D2DFFF;
+    border: 1px solid #355CBD;
+    border-radius: 5px;
+}
+
+.stat-val {
+    font-size: 36px;
+    font-weight: bold;
+    color: #355CBD;
+    margin-bottom: 5px;
+}
+
+.stat-lbl {
+    font-size: 12px;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* легенда */
+.legend {
+    margin-top: 40px;
+    padding: 25px;
+    background: #D2DFFF;
+    border-radius: 8px;
+    border-left: 4px solid #355CBD;
+}
+
+.legend h3 {
+    color: #355CBD;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.legend-items {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.relation-symbol {
+    font-weight: bold;
+    color: #355CBD;
+    background: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid #355CBD;
+}
+
+/* Info box */
+.info-box {
+    margin-top: 30px;
+    padding: 25px;
+    background: #FFFFFF;
+    border: 1px solid #D2DFFF;
+    border-radius: 8px;
+}
+
+.info-box h3 {
+    color: #355CBD;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.info-box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-box li {
+    padding: 8px 0;
+    border-bottom: 1px solid #D2DFFF;
+}
+
+.info-box li:last-child {
+    border-bottom: none;
+}
+
+/* инструкции печати */
+.print-instructions {
+    margin-top: 30px;
+    padding: 25px;
+    background: #D2DFFF;
+    border-radius: 8px;
+}
+
+.print-instructions h3 {
+    color: #355CBD;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.print-instructions ol {
+    padding-left: 20px;
+}
+
+.print-instructions li {
+    padding: 5px 0;
+    color: #333333;
+}
+
+kbd {
+    background: #355CBD;
+    color: #FFFFFF;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+/* кнопка печати */
+.print-button-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.print-btn {
+    background: #355CBD;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-family: 'Candara', 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(53, 92, 189, 0.2);
+}
+
+.print-btn:hover {
+    background: #2a4a9f;
+}
+
+.print-btn:active {
+    background: #1e3a7a;
+    transform: translateY(1px);
+}
+
+.print-btn::before {
+    content: "";
+}
+
+/* Responsive styles for smaller screens */
+@media screen and (max-width: 1440px) {
+    body {
+        min-width: 1440px;
+        overflow-x: scroll;
+    }
+    
+    .container {
+        width: 1400px;
+        min-width: 1400px;
+    }
+}
+
+/* стили для печати */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 1cm;
+    }
+    
+    .no-print, .print-button-container {
+        display: none !important;
+    }
+    
+    body {
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        min-width: auto !important;
+        overflow-x: visible !important;
+        font-size: 12px !important;
+    }
+    
+    .container {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 10px !important;
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: none !important;
+    }
+    
+    h1 {
+        font-size: 24px !important;
+        margin-bottom: 5px !important;
+    }
+    
+    .subtitle {
+        font-size: 14px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .diagram {
+        height: 450px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        page-break-inside: avoid;
+        transform: scale(0.7);
+        transform-origin: top left;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    
+    svg {
+        width: 1320px !important;
+        height: 600px !important;
+    }
+    
+    /* масштабирование элементов */
+    #material-types {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+    
+    #product-types {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+    
+    #workshops {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+    
+    #products {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+    
+    #product-workshops {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+    
+    .entity-header {
+        font-size: 12px !important;
+        padding: 8px 10px !important;
+    }
+    
+    .attribute {
+        font-size: 10px !important;
+        padding: 6px 8px !important;
+    }
+    
+    .key-badge {
+        font-size: 8px !important;
+        padding: 1px 4px !important;
+    }
+    
+    .stats {
+        margin-top: 20px !important;
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+    
+    .legend {
+        margin-top: 20px !important;
+        padding: 15px !important;
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+    
+    .info-box {
+        margin-top: 20px !important;
+        padding: 15px !important;
+        transform: scale(0.8);
+        transform-origin: top left;
+    }
+    
+    /* доп стили для пдф */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    .rel {
+        stroke-width: 1.5 !important;
+    }
+    
+    .card {
+        font-size: 10px !important;
+    }
+}
