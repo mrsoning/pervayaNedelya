@@ -21,9 +21,9 @@ def products():
     search = request.args.get('search', '')
     
     if search:
-        products_list = db.search_products(search)
+        products_list = db.search_products(search) or []
     else:
-        products_list = db.get_products()
+        products_list = db.get_products() or []
     
     return render_template('products.html', products=products_list, search=search)
 
@@ -40,8 +40,8 @@ def add_product():
         db.add_product(name, article, product_type_id, material_type_id, price)
         return redirect(url_for('products'))
     
-    product_types = db.get_product_types()
-    material_types = db.get_material_types()
+    product_types = db.get_product_types() or []
+    material_types = db.get_material_types() or []
     
     return render_template('add_product.html', 
                          product_types=product_types,
@@ -74,15 +74,15 @@ def delete_product(product_id):
 @app.route('/workshops')
 def workshops():
     # список цехов
-    workshops_list = db.get_workshops()
+    workshops_list = db.get_workshops() or []
     return render_template('workshops.html', workshops=workshops_list)
 
 @app.route('/analytics')
 def analytics():
     # аналитика
-    by_type = db.get_products_by_type()
-    avg_price = db.get_average_price_by_type()
-    top_products = db.get_top_expensive_products(10)
+    by_type = db.get_products_by_type() or []
+    avg_price = db.get_average_price_by_type() or []
+    top_products = db.get_top_expensive_products(10) or []
     
     return render_template('analytics.html',
                          by_type=by_type,

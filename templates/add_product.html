@@ -18,22 +18,24 @@
     
     <div class="form-group">
         <label for="product_type_id">Тип продукции *</label>
-        <select id="product_type_id" name="product_type_id" required>
-            <option value="">Выберите тип...</option>
+        <select id="product_type_id" name="product_type_id" required style="min-height: 44px;">
+            <option value="">— Выберите тип продукции —</option>
             {% for pt in product_types %}
             <option value="{{ pt.product_type_id }}">{{ pt.product_type_name }}</option>
             {% endfor %}
         </select>
+        {% if not product_types %}<p style="color: #dc3545; font-size: 14px; margin-top: 5px;">Нет данных. Остановите приложение (Ctrl+C), выполните: python database/create_sqlite.py или python database/populate_sqlite.py</p>{% endif %}
     </div>
     
     <div class="form-group">
         <label for="material_type_id">Тип материала *</label>
-        <select id="material_type_id" name="material_type_id" required>
-            <option value="">Выберите материал...</option>
+        <select id="material_type_id" name="material_type_id" required style="min-height: 44px;">
+            <option value="">— Выберите материал —</option>
             {% for mt in material_types %}
             <option value="{{ mt.material_type_id }}">{{ mt.material_type_name }}</option>
             {% endfor %}
         </select>
+        {% if not material_types %}<p style="color: #dc3545; font-size: 14px; margin-top: 5px;">Нет данных. Остановите приложение (Ctrl+C), выполните: python database/create_sqlite.py или python database/populate_sqlite.py</p>{% endif %}
     </div>
     
     <div class="form-group">

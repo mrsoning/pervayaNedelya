@@ -12,15 +12,18 @@ def create_database():
     # Путь к БД
     db_path = Path(__file__).parent / 'furniture_company.db'
     
-    # Удалить старую БД если есть
-    if db_path.exists():
-        db_path.unlink()
-    
-    # Подключение
-    conn = sqlite3.connect(db_path)
+    # Подключение (не удаляем файл — БД может быть открыта)
+    conn = sqlite3.connect(db_path, timeout=15)
+    conn.execute("PRAGMA foreign_keys = OFF")
     cursor = conn.cursor()
     
-    print("Создание таблиц...")
+    # Удалить таблицы (порядок важен из-за внешних ключей)
+    for table in ['Product_workshops', 'Products', 'Workshops', 'Product_types', 'Material_types']:
+        cursor.execute(f"DROP TABLE IF EXISTS {table}")
+    
+    conn.execute("PRAGMA foreign_keys = ON")
+    
+    print("Creating tables...")
     
     # Material_types
     cursor.execute("""
@@ -96,17 +99,17 @@ def create_database():
         )
     """)
     
-    print("✓ Таблицы созданы")
+    print("OK Tables created")
     
     # Импорт данных
-    print("\nИмпорт данных...")
+    print("\nImporting data...")
     import_data(cursor)
     
     conn.commit()
     conn.close()
     
-    print(f"\n✓ База данных создана: {db_path}")
-    print(f"  Размер: {db_path.stat().st_size / 1024:.1f} KB")
+    print(f"\nOK Database created: {db_path}")
+    print(f"  Size: {db_path.stat().st_size / 1024:.1f} KB")
     
     return db_path
 
@@ -124,7 +127,7 @@ def import_data(cursor):
             "INSERT INTO Material_types (material_type_name, waste_percentage) VALUES (?, ?)",
             (row['Тип материала'], row['Процент потерь сырья'])
         )
-    print(f"  ✓ Material_types: {len(df)} записей")
+    print(f"  Material_types: {len(df)} records")
     
     # Product_types
     df = pd.read_csv(data_dir / 'Product_type_import.csv', encoding='utf-8-sig')
@@ -133,7 +136,7 @@ def import_data(cursor):
             "INSERT INTO Product_types (product_type_name, type_coefficient) VALUES (?, ?)",
             (row['Тип продукции'], row['Коэффициент типа продукции'])
         )
-    print(f"  ✓ Product_types: {len(df)} записей")
+    print(f"  Product_types: {len(df)} records")
     
     # Workshops
     df = pd.read_csv(data_dir / 'Workshops_import.csv', encoding='utf-8-sig')
@@ -142,7 +145,7 @@ def import_data(cursor):
             "INSERT INTO Workshops (workshop_name, workshop_type, staff_count) VALUES (?, ?, ?)",
             (row['Название цеха'], row['Тип цеха'], row['Количество человек для производства '])
         )
-    print(f"  ✓ Workshops: {len(df)} записей")
+    print(f"  Workshops: {len(df)} records")
     
     # Products
     df = pd.read_csv(data_dir / 'Products_import.csv', encoding='utf-8-sig')
@@ -156,7 +159,7 @@ def import_data(cursor):
         """, (row['Наименование продукции'], str(row['Артикул']), 
               row['Тип продукции'], row['Основной материал'], 
               row['Минимальная стоимость для партнера']))
-    print(f"  ✓ Products: {len(df)} записей")
+    print(f"  Products: {len(df)} records")
     
     # Product_workshops
     df = pd.read_csv(data_dir / 'Product_workshops_import.csv', encoding='utf-8-sig')
@@ -169,7 +172,7 @@ def import_data(cursor):
                 ?)
         """, (row['Наименование продукции'], row['Название цеха'], 
               row['Время изготовления, ч']))
-    print(f"  ✓ Product_workshops: {len(df)} записей")
+    print(f"  Product_workshops: {len(df)} records")
 
 if __name__ == "__main__":
     create_database()

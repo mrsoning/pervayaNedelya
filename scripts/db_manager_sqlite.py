@@ -13,9 +13,11 @@ class DatabaseManager:
     def __init__(self, db_path=None):
         """Инициализация подключения"""
         if db_path is None:
-            db_path = Path(__file__).parent.parent / 'database' / 'furniture_company.db'
+            # Абсолютный путь от расположения этого файла
+            base = Path(__file__).resolve().parent.parent
+            db_path = base / 'database' / 'furniture_company.db'
         
-        self.db_path = db_path
+        self.db_path = Path(db_path)
         self.connection = None
         self.connect()
     
@@ -178,7 +180,8 @@ class DatabaseManager:
                 p.article_number,
                 pt.product_type_name,
                 mt.material_type_name,
-                p.min_partner_price
+                p.min_partner_price,
+                p.is_available
             FROM Products p
             JOIN Product_types pt ON p.product_type_id = pt.product_type_id
             JOIN Material_types mt ON p.material_type_id = mt.material_type_id
